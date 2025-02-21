@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Talentica IT Chatbot</h1>
+    </header>
+
+    <div class="chat-container">
+        <h2>Ask your question:</h2>
+
+        <form method="POST">
+            <input type="text" name="user_input" placeholder="Enter your question" required>
+            <button type="submit">Ask</button>
+        </form>
+
+        <div class="response-box">
+            <strong>Response:</strong><br>
+            <p class="chat-response">{{ response | safe }}</p>
+        </div>
+       
+        {% if current_user.is_authenticated and current_user.is_admin %}
+    <p><a href="{{ url_for('upload_file') }}">Upload Documents</a></p>
+{% endif %}
+
+
+        <footer>
+            {% if current_user.is_authenticated %}
+                <p>Logged in as {{ current_user.email }}. <a href="{{ url_for('logout') }}">Logout</a></p>
+            {% else %}
+                <p><a href="{{ url_for('login') }}">Login with Microsoft</a></p>
+            {% endif %}
+        </footer>
+        
+</body>
+</html>
